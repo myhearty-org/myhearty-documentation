@@ -25,13 +25,13 @@ MyHearty is a one-stop, centralized charity website for people to fundraise, don
 
 ## Big Picture
 
-Figure 1 shows a big picture overview of MyHearty. The proposed solution consists of 3 parts: MyHearty Website, MyHearty Dashboard and MyHearty API Server. There are 6 types of users involved, which are charities, organizations, donors, volunteers, receivers and third-party developers.
+Figure 1 shows a big picture overview of MyHearty. The proposed solution consists of 3 parts: MyHearty website, MyHearty dashboard and MyHearty API server. There are 6 types of users involved, which are charities, organizations, donors, volunteers, receivers and third-party developers.
 
 | <img src="images/big-picture.svg" alt="MyHearty Big Picture"> |
 | :-----------------------------------------------------------: |
 |        **Figure 1: Big picture overview of MyHearty**         |
 
-Via MyHearty Dashbaord, both charities and organizations can create volunteer event and aid pages. However, only charities can create fundraising campaigns pages to accept donations from the public. For MyHearty Website, donors can donate for a fundraising campaign, volunteers can register for volunteer events and receivers can apply for available charitable aids. Both the dashboard and the website are powered by MyHearty API that serves JSON responses to the frontend API clients. The API server also allows third-party developers to access charity data, thus opening up chances for developers to build custom integrations into their platforms. Besides, Stripe will be used as the payment processor for donations made on MyHearty Website.
+Via MyHearty dashbaord, both charities and organizations can create volunteer event and aid pages. However, only charities can create fundraising campaigns pages to accept donations from the public. For MyHearty website, donors can donate for a fundraising campaign, volunteers can register for volunteer events and receivers can apply for available charitable aids. Both the dashboard and the website are powered by MyHearty API that serves JSON responses to the frontend API clients. The API server also allows third-party developers to access charity data, thus opening up chances for developers to build custom integrations into their platforms. Besides, Stripe will be used as the payment processor for donations made on MyHearty website.
 
 ## High-Level Architecture
 
@@ -47,9 +47,27 @@ For the backend, all services are deployed as multi-container Docker application
 
 ## Detailed-Level Architecture
 
+Figure 3 shows the detailed breakdown of the high-level architecture diagram. In the detailed-level architecture diagram, each dedicated component is decomposed into a set of subcomponents.
+
 | <img src="images/detailed-level-architecture.svg" alt="MyHearty Detailed-Level Architecture"> |
 | :-------------------------------------------------------------------------------------------: |
 |                       **Figure 3: Detailed-level architecture diagram**                       |
+
+For the frontend, there are 2 Next.js apps: MyHearty website and MyHearty dashboard. MyHearty web app will be used by donors, volunteers and receivers that would like to search for fundraising campaigns, volunteer events or charitable aids. On the other hand, MyHearty dashboard will be used by charities and organizations to create fundraising campaigns, volunteer events or charitable aid pages. 
+
+For the Rails API server, there are 9 main components: Personal Account, Donation, Volunteering, Aid Receival, Charity and Organization Account, Fundraising Management, Volunteer Event Management, Aid Management, and API Access.
+
+- **Personal Account component**: users can sign up and log into their accounts on MyHearty website. 
+- **Donation component**: users can perform online donation payments and view their donation records. 
+- **Volunteering component**: users can submit registrations for volunteer events and view their volunteering records after participating in the volunteer events. 
+- **Aid receival component**: users can submit applications for available charitable aids and view their aid receival records.
+- **Charity and Organization Account component**: charities and organizations can sign up and log into their accounts on MyHearty dashboard. They also can create member accounts to allow other members to manage the published pages. 
+- **Fundraising Management component**: charities can publish their fundraising campaign pages and view the fundraising data. 
+- **Volunteer Event Management component**: organizations can publish their volunteer event pages and manage the volunteer applications. 
+- **Aid Management component**: organizations can publish their charitable aid pages and manage the charitable aid applications. 
+- **API Access component**: developers can create their developer accounts and API keys to access MyHearty API for obtaining data related to fundraising campaigns, volunteer events or charitable aids. 
+
+The PostgreSQL database is responsible for storing and retrieving MyHearty app data. For Stripe payment processor, Stripe Checkout is used to host payment pages and provide webhooks to notify MyHearty whether the payment has been successfully processed, whereas Stripe Connect is used to perform KYC onboarding for charities and organizations and is responsible for distributing donation payouts to their bank accounts on a weekly basis. There are 2 components under the Typesense search engine: indexing component, which is responsible for indexing MyHearty resources into Typesense, and searching component, which offers different types of search experiences, such as instant search, geosearch and similarity search, to MyHearty website users.
 
 ## Database Diagram
 
