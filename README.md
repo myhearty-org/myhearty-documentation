@@ -23,6 +23,18 @@ This repository contains the project overview, technical documentation and archi
 
 MyHearty is a one-stop, centralized charity website for people to fundraise, donate, volunteer and apply for aids. The motivation behind this project stems from the idea of integrating fundraising, donation, volunteering and aiding functions into a single platform with API access. This project aims to connect various parties that are involved in charity via a centralized platform and provide open charity data via an API.
 
+## Glossary
+
+| Term           | Description                                                                                                                                                          |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Charitable Aid | Refers to any charitable giving that are given to people in need. For example, food aid, educational kits for needy students, scholarships and financial assistance. |
+| API            | Application Programming Interface                                                                                                                                    |
+| CSR            | Client-Side Rendering                                                                                                                                                |
+| FPX            | Financial Process Exchange, a Malaysia-based payment method that allows customers to complete transactions online using their bank credentials.                      |
+| KYC            | Know Your Customer, a set of standards used within the financial services industry to verify customers, their risk profiles, and financial profile.                  |
+| SSR            | Server-Side Rendering                                                                                                                                                |
+| VPS            | Virtual Private Server                                                                                                                                               |
+
 ## Big Picture
 
 Figure 1 shows a big picture overview of MyHearty. The proposed solution consists of 3 parts: MyHearty website, MyHearty dashboard and MyHearty API server. There are 6 types of users involved, which are charities, organizations, donors, volunteers, receivers and third-party developers.
@@ -35,7 +47,7 @@ Via MyHearty dashbaord, both charities and organizations can create volunteer ev
 
 ## High-Level Architecture
 
-Figure 2 shows the high-level architecture diagram of MyHearty. The high-level architecture diagram consists of 3 parts: the frontend app, the backend services and the payment processor. The frontend apps are deployed as [Next.js](https://nextjs.org) apps on [Vercel](https://vercel.com) to leverage the framework’s CSR and SSR features and also Vercel’s global edge network capabilities.
+Figure 2 shows the high-level architecture diagram of MyHearty. The high-level architecture diagram consists of 3 parts: the frontend app, the backend services and the payment processor. The frontend apps are deployed as [Next.js](https://nextjs.org) apps on [Vercel](https://vercel.com) to leverage the framework’s CSR and SSR features and also Vercel’s global edge network.
 
 | <img src="images/high-level-architecture.svg" alt="MyHearty High-Level Architecture" width="75%" height="75%"> |
 | :------------------------------------------------------------------------------------------------------------: |
@@ -53,19 +65,19 @@ Figure 3 shows the detailed breakdown of the high-level architecture diagram. In
 | :-------------------------------------------------------------------------------------------: |
 |                       **Figure 3: Detailed-level architecture diagram**                       |
 
-For the frontend, there are 2 Next.js apps: MyHearty website and MyHearty dashboard. MyHearty web app will be used by donors, volunteers and receivers that would like to search for fundraising campaigns, volunteer events or charitable aids. On the other hand, MyHearty dashboard will be used by charities and organizations to create fundraising campaigns, volunteer events or charitable aid pages. 
+For the frontend, there are 2 Next.js apps: MyHearty website and MyHearty dashboard. MyHearty web app will be used by donors, volunteers and receivers that would like to search for fundraising campaigns, volunteer events or charitable aids. On the other hand, MyHearty dashboard will be used by charities and organizations to create fundraising campaigns, volunteer events or charitable aid pages.
 
 For the Rails API server, there are 9 main components: Personal Account, Donation, Volunteering, Aid Receival, Charity and Organization Account, Fundraising Management, Volunteer Event Management, Aid Management, and API Access.
 
-- **Personal Account component**: users can sign up and log into their accounts on MyHearty website. 
-- **Donation component**: users can perform online donation payments and view their donation records. 
-- **Volunteering component**: users can submit registrations for volunteer events and view their volunteering records after participating in the volunteer events. 
+- **Personal Account component**: users can sign up and log into their accounts on MyHearty website.
+- **Donation component**: users can perform online donation payments and view their donation records.
+- **Volunteering component**: users can submit registrations for volunteer events and view their volunteering records after participating in the volunteer events.
 - **Aid receival component**: users can submit applications for available charitable aids and view their aid receival records.
-- **Charity and Organization Account component**: charities and organizations can sign up and log into their accounts on MyHearty dashboard. They also can create member accounts to allow other members to manage the published pages. 
-- **Fundraising Management component**: charities can publish their fundraising campaign pages and view the fundraising data. 
-- **Volunteer Event Management component**: organizations can publish their volunteer event pages and manage the volunteer applications. 
-- **Aid Management component**: organizations can publish their charitable aid pages and manage the charitable aid applications. 
-- **API Access component**: developers can create their developer accounts and API keys to access MyHearty API for obtaining data related to fundraising campaigns, volunteer events or charitable aids. 
+- **Charity and Organization Account component**: charities and organizations can sign up and log into their accounts on MyHearty dashboard. They also can create member accounts to allow other members to manage the published pages.
+- **Fundraising Management component**: charities can publish their fundraising campaign pages and view the fundraising data.
+- **Volunteer Event Management component**: organizations can publish their volunteer event pages and manage the volunteer applications.
+- **Aid Management component**: organizations can publish their charitable aid pages and manage the charitable aid applications.
+- **API Access component**: developers can create their developer accounts and API keys to access MyHearty API for obtaining data related to fundraising campaigns, volunteer events or charitable aids.
 
 The PostgreSQL database is responsible for storing and retrieving MyHearty app data. For Stripe payment processor, Stripe Checkout is used to host payment pages and provide webhooks to notify MyHearty whether the payment has been successfully processed, whereas Stripe Connect is used to perform KYC onboarding for charities and organizations and is responsible for distributing donation payouts to their bank accounts on a weekly basis. There are 2 components under the Typesense search engine: indexing component, which is responsible for indexing MyHearty resources into Typesense, and searching component, which offers different types of search experiences, such as instant search, geosearch and similarity search, to MyHearty website users.
 
