@@ -25,7 +25,7 @@ MyHearty is a one-stop, centralized charity website for people to fundraise, don
 
 ## Big Picture
 
-Figure 1 shows a big picture overview of MyHearty. The proposed solution consists of 3 parts: MyHearty Website, MyHearty Dashboard and MyHearty API Server. There are 6 types of users involved, which are charities, organizations, donors, volunteers, receivers and third-party developers. 
+Figure 1 shows a big picture overview of MyHearty. The proposed solution consists of 3 parts: MyHearty Website, MyHearty Dashboard and MyHearty API Server. There are 6 types of users involved, which are charities, organizations, donors, volunteers, receivers and third-party developers.
 
 | <img src="images/big-picture.svg" alt="MyHearty Big Picture"> |
 | :-----------------------------------------------------------: |
@@ -35,9 +35,15 @@ Via MyHearty Dashbaord, both charities and organizations can create volunteer ev
 
 ## High-Level Architecture
 
+Figure 2 shows the high-level architecture diagram of MyHearty. The high-level architecture diagram consists of 3 parts: the frontend app, the backend services and the payment processor. The frontend apps are deployed as [Next.js](https://nextjs.org) apps on [Vercel](https://vercel.com) to leverage the framework’s CSR and SSR features and also Vercel’s global edge network capabilities.
+
 | <img src="images/high-level-architecture.svg" alt="MyHearty High-Level Architecture" width="75%" height="75%"> |
 | :------------------------------------------------------------------------------------------------------------: |
 |                                 **Figure 2: High-level architecture diagram**                                  |
+
+For the backend, all services are deployed as multi-container Docker applications via [Docker Compose](https://docs.docker.com/compose) on the [Exabytes VPS](https://www.exabytes.my/servers/ssd-vps). There are 4 backend components: NGINX web server, Rails API server, PostgreSQL database and Typesense search engine. The [NGINX web server](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy) acts as a reverse proxy server that directs client requests to the appropriate backend services based on the API URL paths, which, in this case, refer to the Rails API server and the Typesense search engine. The [Rails API server](https://guides.rubyonrails.org/api_app.html) is responsible for hosting MyHearty API that handles requests from the Next.js apps. It communicates with the [PostgreSQL database](https://www.postgresql.org) for access and retrieval of the app data. The [Typesense search engine](https://typesense.org) is used to offer typo-tolerant instant search for resources hosted on MyHearty, which include fundraising campaigns, volunteer events and charitable aids. The API server will index the resources into Typesense collections every time a new resource is published or updated on MyHearty.
+
+[Stripe](https://stripe.com) is used as the payment processor for donations made on MyHearty. There are 2 services involved: Stripe Connect and Stripe Checkout. [Stripe Connect](https://stripe.com/docs/connect) is used to onboard organizations that want to publish fundraising campaigns on MyHearty by collecting their business information, which include business name, location and bank account information. This avoids the need for MyHearty to store sensitive data that often require strict data compliance process. Besides, [Stripe Checkout](https://stripe.com/docs/payments/checkout) provides a hosted payment page that can be customized to securely accept online payments from donors. It supports credit card, debit card, FPX and some digital wallet payments.
 
 ## Detailed-Level Architecture
 
