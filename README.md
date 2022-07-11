@@ -71,6 +71,16 @@ The PostgreSQL database is responsible for storing and retrieving MyHearty app d
 
 ## Database Diagram
 
+Figure 4 shows the database diagram of MyHearty. There are 10 main tables in MyHearty. Each table is colour-coded according to its corresponding functionality: blue refers to the user, organization and member account-related classes, red refers to the fundraising campaign-related classes, yellow refers to the volunteer event-related classes, and green refers to the charitable aid-related classes.
+
 | <img src="images/myhearty-db.svg" alt="MyHearty Database Diagram"> |
 | :----------------------------------------------------------------: |
 |                   **Figure 4: Database diagram**                   |
+
+- The organization class has a one-to-many relationship with the member, fundraising campaign, volunteer event and charitable aid classes.
+- The fundraising campaign class has a one-to-many connection with the donation and payment classes.
+- The volunteer event class has a one-to-many connection with the volunteer application class.
+- The charitable aid class has a one-to-many connection with the charitable aid application class.
+- Correspondingly, the user class has a one-to-many connection with the donation, payment, volunteer application and charitable aid application classes.
+
+Refer to the [MyHearty database schema](https://github.com/myhearty-org/myhearty-api/blob/main/db/schema.rb) for the full database implementation.
