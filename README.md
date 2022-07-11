@@ -25,24 +25,28 @@ MyHearty is a one-stop, centralized charity website for people to fundraise, don
 
 ## Big Picture
 
-<div align="center">
-  <img src="images/big-picture.svg" alt="MyHearty High-Level Architecture">
-</div>
+Figure 1 shows a big picture overview of MyHearty. The proposed solution consists of 3 parts: MyHearty Website, MyHearty Dashboard and MyHearty API Server. There are 6 types of users involved, which are charities, organizations, donors, volunteers, receivers and third-party developers. 
+
+| <img src="images/big-picture.svg" alt="MyHearty Big Picture"> |
+| :-----------------------------------------------------------: |
+|        **Figure 1: Big picture overview of MyHearty**         |
+
+Via MyHearty Dashbaord, both charities and organizations can create volunteer event and aid pages. However, only charities can create fundraising campaigns pages to accept donations from the public. For MyHearty Website, donors can donate for a fundraising campaign, volunteers can register for volunteer events and receivers can apply for available charitable aids. Both the dashboard and the website are powered by MyHearty API that serves JSON responses to the frontend API clients. The API server also allows third-party developers to access charity data, thus opening up chances for developers to build custom integrations into their platforms. Besides, Stripe will be used as the payment processor for donations made on MyHearty Website.
 
 ## High-Level Architecture
 
-<div align="center">
-  <img src="images/high-level-architecture.svg" alt="MyHearty High-Level Architecture" width="75%" height="75%">
-</div>
+| <img src="images/high-level-architecture.svg" alt="MyHearty High-Level Architecture" width="75%" height="75%"> |
+| :------------------------------------------------------------------------------------------------------------: |
+|                                 **Figure 2: High-level architecture diagram**                                  |
 
 ## Detailed-Level Architecture
 
-<div align="center">
-  <img src="images/detailed-level-architecture.svg" alt="MyHearty High-Level Architecture">
-</div>
+| <img src="images/detailed-level-architecture.svg" alt="MyHearty Detailed-Level Architecture"> |
+| :-------------------------------------------------------------------------------------------: |
+|                       **Figure 3: Detailed-level architecture diagram**                       |
 
 ## Database Diagram
 
-<div align="center">
-  <img src="images/myhearty-db.svg" alt="MyHearty High-Level Architecture">
-</div>
+| <img src="images/myhearty-db.svg" alt="MyHearty Database Diagram"> |
+| :----------------------------------------------------------------: |
+|                   **Figure 4: Database diagram**                   |
